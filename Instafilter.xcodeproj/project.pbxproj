@@ -15,6 +15,7 @@
 		323B0445294DC31100399E80 /* InstafilterUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323B0444294DC31100399E80 /* InstafilterUITests.swift */; };
 		323B0447294DC31100399E80 /* InstafilterUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323B0446294DC31100399E80 /* InstafilterUITestsLaunchTests.swift */; };
 		323B0456294DF45D00399E80 /* PHPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323B0455294DF45D00399E80 /* PHPicker.swift */; };
+		323B04902951C9D400399E80 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323B048F2951C9D400399E80 /* ImageSaver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,7 @@
 		323B0444294DC31100399E80 /* InstafilterUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstafilterUITests.swift; sourceTree = "<group>"; };
 		323B0446294DC31100399E80 /* InstafilterUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstafilterUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		323B0455294DF45D00399E80 /* PHPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PHPicker.swift; sourceTree = "<group>"; };
+		323B048F2951C9D400399E80 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 			children = (
 				323B0429294DC30F00399E80 /* InstafilterApp.swift */,
 				323B042B294DC30F00399E80 /* ContentView.swift */,
+				323B048F2951C9D400399E80 /* ImageSaver.swift */,
 				323B0455294DF45D00399E80 /* PHPicker.swift */,
 				323B042D294DC31100399E80 /* Assets.xcassets */,
 				323B042F294DC31100399E80 /* Preview Content */,
@@ -263,6 +266,7 @@
 				323B042C294DC30F00399E80 /* ContentView.swift in Sources */,
 				323B042A294DC30F00399E80 /* InstafilterApp.swift in Sources */,
 				323B0456294DF45D00399E80 /* PHPicker.swift in Sources */,
+				323B04902951C9D400399E80 /* ImageSaver.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -424,6 +428,7 @@
 				DEVELOPMENT_TEAM = 7S5KXF68WA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We want to save your filtered photo.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -453,6 +458,7 @@
 				DEVELOPMENT_TEAM = 7S5KXF68WA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "We want to save your filtered photo.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
