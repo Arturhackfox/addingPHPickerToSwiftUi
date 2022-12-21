@@ -16,11 +16,13 @@ struct ContentView: View {
     
     @State private var isShowingImagePicker = false
     @State private var inputImage: UIImage?
+    @State private var processedImage: UIImage?
     
     @State private var currentFilter: CIFilter = CIFilter.sepiaTone()
     let context = CIContext()
     
     @State private var isFilterSheetShowing = false
+    
 
     var body: some View {
         NavigationView {
@@ -86,6 +88,22 @@ struct ContentView: View {
         applyProccessing()
  }
     
+    func save() {
+        guard let processedImage = processedImage else { return }
+        
+        let imageSaver = ImageSaver()
+        
+        imageSaver.successHandler = {
+            print("Success!")
+        }
+        
+        imageSaver.errorHandler = {
+            print("Oops there was an error \($0.localizedDescription)")
+        }
+        
+        imageSaver.writeToPhotoAlbum(image: processedImage )
+    }
+    
     func applyProccessing () {
         
         let inputKeys = currentFilter.inputKeys
@@ -104,22 +122,18 @@ struct ContentView: View {
         }
       
         
-         
         guard let outputImage = currentFilter.outputImage else { return }
         
         if let cgimg = context.createCGImage(outputImage, from: outputImage.extent) {
             let uiImage = UIImage(cgImage: cgimg)
             image = Image(uiImage: uiImage)
+            processedImage = uiImage
         }
     }
     
     func setFilter (_ filter: CIFilter) {
         currentFilter = filter
         loadImage()
-    }
- 
-    func save() {
-        //
     }
 }
 
