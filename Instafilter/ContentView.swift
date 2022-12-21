@@ -101,32 +101,15 @@ struct ContentView: View {
         guard let inputImage = inputImage else { return }
         
         let beginImage = CIImage(image: inputImage)
-        
+        // as new image was detected in the input image section  ->
         // pass new image to filter
         currentFilter.setValue(beginImage, forKey: kCIInputImageKey)
         
-        // after loaded image -> modify and return it with new proccessed style to main swift Image
+        // after loaded image was modified -> return it with new proccessed style to main swift Image
         applyProccessing()
  }
     
-    func save() {
-        guard let processedImage = processedImage else { return }
-        
-        let imageSaver = ImageSaver()
-        
-        imageSaver.successHandler = {
-            print("Success!")
-        }
-        
-        imageSaver.errorHandler = {
-            print("Oops there was an error \($0.localizedDescription)")
-        }
-        
-        imageSaver.writeToPhotoAlbum(image: processedImage )
-    }
-    
     func applyProccessing () {
-    
         
         let inputKeys = currentFilter.inputKeys
         
@@ -156,6 +139,22 @@ struct ContentView: View {
             image = Image(uiImage: uiImage)
             processedImage = uiImage
         }
+    }
+    
+    func save() {
+        guard let processedImage = processedImage else { return }
+        
+        let imageSaver = ImageSaver()
+        
+        imageSaver.successHandler = {
+            print("Success!")
+        }
+        
+        imageSaver.errorHandler = {
+            print("Oops there was an error \($0.localizedDescription)")
+        }
+        
+        imageSaver.writeToPhotoAlbum(image: processedImage )
     }
     
 
