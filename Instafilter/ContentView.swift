@@ -13,6 +13,9 @@ import CoreImage.CIFilterBuiltins
 struct ContentView: View {
     @State private var image: Image?
     @State private var filterIntensity = 0.5
+    @State private var filterRadius = 0.5
+    @State private var filterScale = 0.5
+    
     
     @State private var isShowingImagePicker = false
     @State private var inputImage: UIImage?
@@ -36,6 +39,7 @@ struct ContentView: View {
                     image?
                         .resizable()
                         .scaledToFit()
+                        
                 }
                 .onTapGesture {
                     isShowingImagePicker = true
@@ -47,12 +51,28 @@ struct ContentView: View {
                     Slider(value: $filterIntensity)
                         .onChange(of: filterIntensity) { _ in applyProccessing()}
                 }
+                
+                HStack {
+                    Text("radius")
+                        .font(.title3)
+                    Slider(value: $filterRadius)
+                        .onChange(of: filterRadius) { _ in applyProccessing()}
+                }
+                
+                HStack {
+                    Text("scale")
+                        .font(.title3)
+                    Slider(value: $filterScale)
+                        .onChange(of: filterScale) { _ in applyProccessing()}
+                }
+                
                 HStack {
                     Button("Change Filter") {
                        isFilterSheetShowing = true
                     }
                     Spacer()
                     Button("Save changes", action: save)
+                        .disabled(disableEmptySaving())
                 }
             }
             .padding([.horizontal, .bottom])
@@ -64,12 +84,13 @@ struct ContentView: View {
             .confirmationDialog("Select Filter", isPresented: $isFilterSheetShowing) {
                 Button("Crystallize") { setFilter(CIFilter.crystallize()) }
                 Button("Sepia Tone") { setFilter(CIFilter.sepiaTone()) }
-                Button("Vignette") { setFilter(CIFilter.vignette()) }
                 Button("Edges") { setFilter(CIFilter.edges()) }
                 Button("Gaussian Blur") { setFilter(CIFilter.gaussianBlur()) }
                 Button("Pixellate") { setFilter(CIFilter.pixellate()) }
-                Button("Unsharp Mask") { setFilter(CIFilter.unsharpMask()) }
                 Button("X ray") { setFilter(CIFilter.xRay()) }
+                Button("Bokeh blur") { setFilter(CIFilter.bokehBlur()) }
+                Button("Circular wrap") { setFilter(CIFilter.circularWrap()) }
+                Button("Pointillize") { setFilter(CIFilter.pointillize()) }
                 Button("Cancel", role: .cancel) { }
             }
         }
@@ -105,6 +126,7 @@ struct ContentView: View {
     }
     
     func applyProccessing () {
+    
         
         let inputKeys = currentFilter.inputKeys
         
@@ -112,15 +134,20 @@ struct ContentView: View {
             currentFilter.setValue(filterIntensity, forKey: kCIInputIntensityKey)
             
         }
-        if inputKeys.contains(kCIInputRadiusKey){
-            currentFilter.setValue(filterIntensity * 200, forKey: kCIInputRadiusKey)
             
+        if inputKeys.contains(kCIInputRadiusKey){
+            currentFilter.setValue(filterRadius * 400, forKey: kCIInputRadiusKey)
+
         }
         if inputKeys.contains(kCIInputScaleKey){
-            currentFilter.setValue(filterIntensity * 10, forKey: kCIInputScaleKey)
+            currentFilter.setValue(filterScale * 10, forKey: kCIInputScaleKey)
             
         }
-      
+        
+        if inputKeys.contains(kCIInputAngleKey){
+            currentFilter.setValue(filterScale * 115, forKey: kCIInputAngleKey)
+            
+        }
         
         guard let outputImage = currentFilter.outputImage else { return }
         
@@ -131,9 +158,19 @@ struct ContentView: View {
         }
     }
     
+
+    
     func setFilter (_ filter: CIFilter) {
         currentFilter = filter
         loadImage()
+    }
+    
+    func disableEmptySaving() -> Bool {
+        if inputImage == nil {
+            return true
+        } else {
+            return false
+        }
     }
 }
 
